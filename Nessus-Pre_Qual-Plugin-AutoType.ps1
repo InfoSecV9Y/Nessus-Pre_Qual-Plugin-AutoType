@@ -1,41 +1,28 @@
 
-<#
-	By: Vinay
-	
+<#	By: Vinay
 	Purpose:   This script is designed to type the plugin id's in the Nessus Filters list (Nessus Web UI). Which can be use as a pre-qualification scan to check the credential and connectivity issues before running the actual scan.
-	
 	Pre-Conditions: 
 		1.Multiple filters list to be added on the filters screen before running the script
 		2.Must select the first entry in the filters list when the timer is running
 		3.Suggested to move the cursor to a different place from the filters screen to avoid any unexpected selection of filter type.
-		
 	Version: 0.1
-	
 	Last modified: 2021.Oct.20 7:00 PM
-	
 	Known Bugs:
 		*Nil
-		
 	Pending Enhancements:
 		*Can be updated with the plugin names to reduce the iterations
 		*Selecting the filters using the PowerShell or js script driven by PowerShell send keys
-
 	Updates:
 		*NA
-		
 	Ref:
 	   #Plugin id's list is collected from: https://community.tenable.com/s/article/Useful-plugins-to-troubleshoot-credential-scans
-	
+
 	#Plugins for Windows & Linux authentication (Count #33): 
 		24269,34252,35703,35704,19506,20811,21745,24786,26917,10394,110695,141118,110095,11149,110385,104410,110723,35705,35706,12634,117885,19762,84238,10400,10428,13855,102094,24272,22869,57033,26921,117886,117887
-	
 	#Plugins for Windows, Linux & Database authentication (Count #48):
 		24269,34252,35703,35704,19506,20811,19506,21745,24786,26917,10394,110695,141118,12634,25221,33851,110095,22073,10658,11219,14272,11149,110385,104410,110723,35705,35706,97993,12634,117885,19762,73204,72816,57399,57400,80860,65703,84231,84238,63062,10400,10428,13855,57033,102094,21745,10394,10400,10428,24272,22869,57033,26921,117886,117887
-	
-
 #>
 
-# Initial confirmtion before running the Auto-Type operation
 
 $plugins = 24269,34252,35703,35704,19506,20811,21745,24786,26917,10394,110695,141118,110095,11149,110385,104410,110723,35705,35706,12634,117885,19762,84238,10400,10428,13855,102094,24272,22869,57033,26921,117886,117887
 $plugins_count=$plugins.length
@@ -71,9 +58,9 @@ $plugins_count=$plugins.length
 
     Note: The above script is tested on Chrome Version 94.0.4606.61 on windows (Oct 2021). Nessus may change the approach in adding the filter so please use at your own risk."
 
-
-
 Add-Type -AssemblyName System.Windows.Forms
+
+# Initial confirmtion before running the Auto-Type operation
 $confirmation = Read-Host "Are you sure you want to proceed with Auto-Type? (y/yes/v/any)"
 $startMs = Get-Date
 if ($confirmation.ToLower() -eq 'v' ) {
@@ -85,16 +72,14 @@ if ($confirmation.ToLower() -eq 'v' ) {
         Start-Sleep -Milliseconds 1000
     }
 } else {
-    ""
+    	""
 	"Wrong input received. Auto-typing operation cancelled."
 	""
 	"You may rerun the script and type Y/y/Yes/yes as an input if you want to proceed with the script execution"
-    return
+    	return
 }
 
-
 $middleMs = Get-Date
-
 
 for($i=1; $i-le $plugins_count;$i++)  #foreach ($plugin in $plugins)
 {
